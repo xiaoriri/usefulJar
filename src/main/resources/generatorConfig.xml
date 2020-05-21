@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!--clean:clean compiler:compile jar:jar install:install-file -Dfile=F:\JAVA\Projects\Main\mybatis-generator\target\mybatis-generator-1.0-SNAPSHOT.jar -DgroupId=edu.cqupt -DartifactId=mybatis-generator -Dversion=1.0-SNAPSHOT -Dpackaging=jar mybatis-generator:generate-->
+
+    <classPathEntry location="D:\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+
+    <!--生成Example类-->
+    <context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!--MySQL风格的数据库分割符-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!--缓存配置-->
+        <plugin type="org.mybatis.generator.plugins.CachePlugin">
+            <property name="cache_eviction" value="LRU"/>
+            <property name="cache_size" value="1024"/>
+        </plugin>
+
+        <!--用于支撑缓存插件-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!--hash函数插件-->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <!--tostring函数插件-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!--自定义的一个多功能查询接口-->
+        <plugin type="plugins.ConditionSelectPlugin">
+            <property name="globalEnable" value="false"/>
+        </plugin>
+
+        <!--自定义多功能修改接口-->
+        <plugin type="plugins.ConditionUpdatePlugin">
+            <property name="globalEnable" value="false"/>
+        </plugin>
+
+        <!--自定义多功能删除接口-->
+        <plugin type="plugins.ConditionDeletePlugin">
+            <property name="globalEnable" value="false"/>
+        </plugin>
+
+        <!--自定义的接口注解添加插件-->
+        <plugin type="plugins.MapperAnnotationPlugin">
+            <property name="globalEnable" value="true"/>
+            <property name="globalAnnotationSeparator" value=","/>
+            <property name="globalAnnotationClasses" value="org.springframework.stereotype.Repository"/>
+        </plugin>
+
+        <!--自定义支持JPA的注解插件-->
+        <plugin type="plugins.JpaEntityPlugin"/>
+
+        <!--自定义注释插件-->
+        <plugin type="plugins.CommentPlugin"/>
+
+        <!-- 是否生成注释 -->
+        <commentGenerator type="plugins.CommentPlugin">
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="false"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+		<!--数据库连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://rm-m5e72gl2x810573yx4o.mysql.rds.aliyuncs.com:3306/litemall_travel?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC&amp;verifyServerCertificate=false&amp;useSSL=false"
+			userId="sdyouliao" password="SD0535!@#408" />
+
+        <!--类处理器-->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- java模型生成配置 -->
+        <javaModelGenerator targetPackage="edu.cqupt.mislab.erpm.user.model.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--xml生成配置-->
+        <sqlMapGenerator targetPackage="mybatis.mapper.user" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!--接口生成配置-->
+        <javaClientGenerator targetPackage="edu.cqupt.mislab.erpm.user.dao" targetProject="src/main/java/"
+                             type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 数据库表 -->
+      <!--   <table schema="erpm" tableName="%"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="true" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"
+               delimitIdentifiers="true"
+               enableCountByExample="false" enableSelectByExample="false" enableDeleteByExample="false"
+               enableUpdateByExample="false" selectByExampleQueryId="false" selectByPrimaryKeyQueryId="false">
+
+            <property name="enableConditionSelect" value="true"/>
+            <property name="enableConditionUpdate" value="true"/>
+            <property name="enableConditionDelete" value="true"/>
+
+            <property name="enableMapperAnnotationPlugin" value="false"/>
+            <property name="annotationSeparator" value=","/>
+            <property name="annotationClasses" value="org.springframework.stereotype.Repository"/>
+
+            <generatedKey column="id" sqlStatement="MySql" type="post" identity="true"/>
+        </table>
+         -->
+        <table tableName="litemall_article">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+			<columnOverride column="pic_url" javaType="java.lang.String[]"
+			typeHandler="org.linlinjava.litemall.db.mybatis.JsonStringArrayTypeHandler" />
+			
+		</table>
+		
+    </context>
+</generatorConfiguration>
